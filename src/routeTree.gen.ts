@@ -10,33 +10,192 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as AuthenticatedBadgesRouteImport } from './routes/_authenticated/badges'
+import { Route as AuthenticatedChatRouteImport } from './routes/_authenticated/chat'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedDepositsRouteImport } from './routes/_authenticated/deposits'
+import { Route as AuthenticatedExpensesRouteImport } from './routes/_authenticated/expenses'
+import { Route as AuthenticatedFutureMeRouteImport } from './routes/_authenticated/future-me'
+import { Route as AuthenticatedGoalsRouteImport } from './routes/_authenticated/goals'
+import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedSavingsPlanRouteImport } from './routes/_authenticated/savings-plan'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedBadgesRoute = AuthenticatedBadgesRouteImport.update({
+  id: '/badges',
+  path: '/badges',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedChatRoute = AuthenticatedChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDepositsRoute = AuthenticatedDepositsRouteImport.update({
+  id: '/deposits',
+  path: '/deposits',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedExpensesRoute = AuthenticatedExpensesRouteImport.update({
+  id: '/expenses',
+  path: '/expenses',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedFutureMeRoute = AuthenticatedFutureMeRouteImport.update({
+  id: '/future-me',
+  path: '/future-me',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedGoalsRoute = AuthenticatedGoalsRouteImport.update({
+  id: '/goals',
+  path: '/goals',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedInsightsRoute = AuthenticatedInsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSavingsPlanRoute =
+  AuthenticatedSavingsPlanRouteImport.update({
+    id: '/savings-plan',
+    path: '/savings-plan',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/badges': typeof AuthenticatedBadgesRoute
+  '/chat': typeof AuthenticatedChatRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/deposits': typeof AuthenticatedDepositsRoute
+  '/expenses': typeof AuthenticatedExpensesRoute
+  '/future-me': typeof AuthenticatedFutureMeRoute
+  '/goals': typeof AuthenticatedGoalsRoute
+  '/insights': typeof AuthenticatedInsightsRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/savings-plan': typeof AuthenticatedSavingsPlanRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/badges': typeof AuthenticatedBadgesRoute
+  '/chat': typeof AuthenticatedChatRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/deposits': typeof AuthenticatedDepositsRoute
+  '/expenses': typeof AuthenticatedExpensesRoute
+  '/future-me': typeof AuthenticatedFutureMeRoute
+  '/goals': typeof AuthenticatedGoalsRoute
+  '/insights': typeof AuthenticatedInsightsRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/savings-plan': typeof AuthenticatedSavingsPlanRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/_authenticated/badges': typeof AuthenticatedBadgesRoute
+  '/_authenticated/chat': typeof AuthenticatedChatRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/deposits': typeof AuthenticatedDepositsRoute
+  '/_authenticated/expenses': typeof AuthenticatedExpensesRoute
+  '/_authenticated/future-me': typeof AuthenticatedFutureMeRoute
+  '/_authenticated/goals': typeof AuthenticatedGoalsRoute
+  '/_authenticated/insights': typeof AuthenticatedInsightsRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/savings-plan': typeof AuthenticatedSavingsPlanRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/reset-password'
+    | '/badges'
+    | '/chat'
+    | '/dashboard'
+    | '/deposits'
+    | '/expenses'
+    | '/future-me'
+    | '/goals'
+    | '/insights'
+    | '/profile'
+    | '/savings-plan'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/reset-password'
+    | '/badges'
+    | '/chat'
+    | '/dashboard'
+    | '/deposits'
+    | '/expenses'
+    | '/future-me'
+    | '/goals'
+    | '/insights'
+    | '/profile'
+    | '/savings-plan'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/reset-password'
+    | '/_authenticated/badges'
+    | '/_authenticated/chat'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/deposits'
+    | '/_authenticated/expenses'
+    | '/_authenticated/future-me'
+    | '/_authenticated/goals'
+    | '/_authenticated/insights'
+    | '/_authenticated/profile'
+    | '/_authenticated/savings-plan'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +207,134 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/badges': {
+      id: '/_authenticated/badges'
+      path: '/badges'
+      fullPath: '/badges'
+      preLoaderRoute: typeof AuthenticatedBadgesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/chat': {
+      id: '/_authenticated/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof AuthenticatedChatRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/deposits': {
+      id: '/_authenticated/deposits'
+      path: '/deposits'
+      fullPath: '/deposits'
+      preLoaderRoute: typeof AuthenticatedDepositsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/expenses': {
+      id: '/_authenticated/expenses'
+      path: '/expenses'
+      fullPath: '/expenses'
+      preLoaderRoute: typeof AuthenticatedExpensesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/future-me': {
+      id: '/_authenticated/future-me'
+      path: '/future-me'
+      fullPath: '/future-me'
+      preLoaderRoute: typeof AuthenticatedFutureMeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/goals': {
+      id: '/_authenticated/goals'
+      path: '/goals'
+      fullPath: '/goals'
+      preLoaderRoute: typeof AuthenticatedGoalsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/insights': {
+      id: '/_authenticated/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof AuthenticatedInsightsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/savings-plan': {
+      id: '/_authenticated/savings-plan'
+      path: '/savings-plan'
+      fullPath: '/savings-plan'
+      preLoaderRoute: typeof AuthenticatedSavingsPlanRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedBadgesRoute: typeof AuthenticatedBadgesRoute
+  AuthenticatedChatRoute: typeof AuthenticatedChatRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedDepositsRoute: typeof AuthenticatedDepositsRoute
+  AuthenticatedExpensesRoute: typeof AuthenticatedExpensesRoute
+  AuthenticatedFutureMeRoute: typeof AuthenticatedFutureMeRoute
+  AuthenticatedGoalsRoute: typeof AuthenticatedGoalsRoute
+  AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedSavingsPlanRoute: typeof AuthenticatedSavingsPlanRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedBadgesRoute: AuthenticatedBadgesRoute,
+  AuthenticatedChatRoute: AuthenticatedChatRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedDepositsRoute: AuthenticatedDepositsRoute,
+  AuthenticatedExpensesRoute: AuthenticatedExpensesRoute,
+  AuthenticatedFutureMeRoute: AuthenticatedFutureMeRoute,
+  AuthenticatedGoalsRoute: AuthenticatedGoalsRoute,
+  AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedSavingsPlanRoute: AuthenticatedSavingsPlanRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
