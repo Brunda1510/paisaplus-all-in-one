@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
+import brandIcon from "@/assets/paisapluse-icon.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -44,7 +45,7 @@ function Landing() {
     <div className="min-h-screen bg-background">
       <header className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5">
         <div className="flex items-center gap-2">
-          <span className="brand-gradient grid size-9 place-items-center rounded-xl text-lg">🌱</span>
+          <img src={brandIcon} alt="PaisaPluse logo" width={1024} height={1024} className="size-9 object-contain" />
           <span className="font-display text-lg font-semibold">PaisaPluse</span>
         </div>
         <Button asChild size="sm">
