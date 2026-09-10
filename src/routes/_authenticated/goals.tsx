@@ -145,13 +145,7 @@ function GoalCard({
       </div>
 
       <div className="mt-4 flex items-center gap-4">
-        <span
-          className="transition-transform duration-500"
-          style={{ fontSize: `${2 + m.stage.scale * 2}rem` }}
-          aria-hidden
-        >
-          {m.stage.emoji}
-        </span>
+        <MoneyTree pct={m.pct} label={m.stage.label} />
         <div className="flex-1">
           <div className="flex items-baseline justify-between">
             <span className="font-display text-xl font-semibold">{Math.round(m.pct)}%</span>
@@ -183,6 +177,77 @@ function GoalCard({
           Add savings
         </Button>
       )}
+    </div>
+  );
+}
+
+const LEAVES = [
+  "left-[47%] top-[7%]",
+  "left-[31%] top-[13%]",
+  "left-[62%] top-[13%]",
+  "left-[18%] top-[22%]",
+  "left-[43%] top-[21%]",
+  "left-[73%] top-[23%]",
+  "left-[8%] top-[34%]",
+  "left-[29%] top-[33%]",
+  "left-[56%] top-[31%]",
+  "left-[81%] top-[35%]",
+  "left-[17%] top-[45%]",
+  "left-[42%] top-[43%]",
+  "left-[69%] top-[45%]",
+  "left-[5%] top-[55%]",
+  "left-[28%] top-[55%]",
+  "left-[56%] top-[53%]",
+  "left-[83%] top-[55%]",
+  "left-[17%] top-[65%]",
+  "left-[40%] top-[64%]",
+  "left-[68%] top-[65%]",
+] as const;
+
+function MoneyTree({ pct, label }: { pct: number; label: string }) {
+  const visibleLeaves = pct <= 0 ? 0 : Math.max(1, Math.ceil((pct / 100) * LEAVES.length));
+  const growthClass =
+    pct >= 100
+      ? "scale-100"
+      : pct >= 80
+        ? "scale-90"
+        : pct >= 60
+          ? "scale-80"
+          : pct >= 40
+            ? "scale-70"
+            : pct >= 20
+              ? "scale-60"
+              : "scale-50";
+
+  return (
+    <div
+      className="relative h-28 w-24 shrink-0 overflow-hidden"
+      role="img"
+      aria-label={`${label}, ${Math.round(pct)} percent grown`}
+    >
+      <div className="absolute inset-x-0 bottom-0 h-2 rounded-full bg-primary/15" />
+      <div className="absolute bottom-1 left-1/2 h-[58%] w-2 -translate-x-1/2 rounded-t-full bg-chart-6 transition-all duration-700" />
+      <div className="absolute bottom-[35%] left-[28%] h-1.5 w-[28%] rotate-[24deg] rounded-full bg-chart-6" />
+      <div className="absolute bottom-[44%] right-[28%] h-1.5 w-[28%] -rotate-[27deg] rounded-full bg-chart-6" />
+      <div
+        className={`absolute inset-x-0 top-0 h-[73%] origin-bottom transition-transform duration-700 ease-out ${growthClass}`}
+      >
+        {LEAVES.map((position, index) => (
+          <span
+            key={position}
+            className={`absolute h-5 w-5 rounded-[70%_30%_70%_30%] bg-primary shadow-sm transition-all duration-500 ${position} ${
+              index < visibleLeaves ? "scale-100 opacity-100" : "scale-0 opacity-0"
+            } ${index % 3 === 0 ? "bg-chart-2" : index % 3 === 1 ? "bg-primary" : "bg-chart-4"}`}
+            style={{ transitionDelay: `${index * 24}ms` }}
+            aria-hidden="true"
+          />
+        ))}
+      </div>
+      {pct === 0 ? (
+        <span className="absolute bottom-1 left-1/2 -translate-x-1/2 text-2xl" aria-hidden="true">
+          🌱
+        </span>
+      ) : null}
     </div>
   );
 }
