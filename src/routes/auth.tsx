@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FieldError } from "@/components/ui-bits";
 import { friendlyError } from "@/lib/finance";
+import brandIcon from "@/assets/paisapluse-icon.png";
 
 type Mode = "login" | "signup" | "forgot";
 
@@ -132,7 +133,7 @@ function AuthPage() {
     <div className="grid min-h-screen lg:grid-cols-2">
       <div className="hidden flex-col justify-between bg-sidebar p-10 lg:flex">
         <Link to="/" className="flex items-center gap-2">
-          <span className="brand-gradient grid size-9 place-items-center rounded-xl text-lg">🌱</span>
+          <img src={brandIcon} alt="PaisaPluse logo" width={1024} height={1024} className="size-9 object-contain" />
           <span className="font-display text-lg font-semibold text-sidebar-foreground">
             PaisaPluse
           </span>

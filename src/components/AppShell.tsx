@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { friendlyError } from "@/lib/finance";
+import brandIcon from "@/assets/paisapluse-icon.png";
 
 const NAV = [
   { to: "/dashboard", label: "Dashboard", icon: "🏠" },
@@ -111,9 +112,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 export function Brand() {
   return (
     <Link to="/dashboard" className="flex items-center gap-2">
-      <span className="brand-gradient grid size-9 place-items-center rounded-xl text-lg shadow-glow">
-        🌱
-      </span>
+      <img
+        src={brandIcon}
+        alt="PaisaPluse logo"
+        width={1024}
+        height={1024}
+        className="size-9 object-contain"
+      />
       <span className="leading-tight">
         <span className="block font-display text-lg font-semibold text-sidebar-foreground">
           PaisaPluse
