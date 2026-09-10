@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
@@ -36,7 +36,6 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 function AuthPage() {
   const search = Route.useSearch();
-  const navigate = useNavigate();
   const { user, loading } = useAuth();
   const [mode, setMode] = useState<Mode>(search["mode"] ?? "signup");
   const [name, setName] = useState("");
@@ -48,8 +47,8 @@ function AuthPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
-    if (!loading && user) navigate({ to: "/dashboard" });
-  }, [loading, user, navigate]);
+    if (!loading && user) window.location.replace("/dashboard");
+  }, [loading, user]);
 
   function validate(): boolean {
     const e: Record<string, string> = {};
@@ -84,7 +83,7 @@ function AuthPage() {
           setMode("login");
         } else {
           toast.success("Welcome to PaisaPluse 🌱");
-          navigate({ to: "/dashboard" });
+          window.location.replace("/dashboard");
         }
       } else if (mode === "login") {
         const { error } = await supabase.auth.signInWithPassword({
@@ -93,7 +92,7 @@ function AuthPage() {
         });
         if (error) throw error;
         toast.success("Welcome back!");
-        navigate({ to: "/dashboard" });
+        window.location.replace("/dashboard");
       } else {
         const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
           redirectTo: `${window.location.origin}/reset-password`,
@@ -121,7 +120,7 @@ function AuthPage() {
         return;
       }
       if (result.redirected) return;
-      navigate({ to: "/dashboard" });
+      window.location.replace("/dashboard");
     } catch (error) {
       toast.error(friendlyError(error));
     } finally {
