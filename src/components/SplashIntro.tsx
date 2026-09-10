@@ -16,16 +16,24 @@ const COLORS = [
 ];
 
 export function SplashIntro() {
-  const [show, setShow] = useState(false);
+  // Rendered during SSR so the intro is visible on the very first paint.
+  const [show, setShow] = useState(true);
   const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (sessionStorage.getItem("pp-splash-seen")) return;
-    sessionStorage.setItem("pp-splash-seen", "1");
-    setShow(true);
-    const t1 = setTimeout(() => setLeaving(true), 2100);
-    const t2 = setTimeout(() => setShow(false), 2700);
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem("pp-splash-seen") === "1";
+      sessionStorage.setItem("pp-splash-seen", "1");
+    } catch {
+      seen = false;
+    }
+    if (seen) {
+      setShow(false);
+      return;
+    }
+    const t1 = setTimeout(() => setLeaving(true), 2200);
+    const t2 = setTimeout(() => setShow(false), 2800);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
