@@ -17,6 +17,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { awardBadge, useDbMutation, useGoals, type Goal } from "@/hooks/useData";
 import { friendlyError, goalMetrics, inr, todayISO } from "@/lib/finance";
+import moneyTreeAsset from "@/assets/paisapluse-money-tree.png.asset.json";
 
 export const Route = createFileRoute("/_authenticated/goals")({
   head: () => ({
@@ -181,72 +182,35 @@ function GoalCard({
   );
 }
 
-const LEAVES = [
-  "left-[47%] top-[7%]",
-  "left-[31%] top-[13%]",
-  "left-[62%] top-[13%]",
-  "left-[18%] top-[22%]",
-  "left-[43%] top-[21%]",
-  "left-[73%] top-[23%]",
-  "left-[8%] top-[34%]",
-  "left-[29%] top-[33%]",
-  "left-[56%] top-[31%]",
-  "left-[81%] top-[35%]",
-  "left-[17%] top-[45%]",
-  "left-[42%] top-[43%]",
-  "left-[69%] top-[45%]",
-  "left-[5%] top-[55%]",
-  "left-[28%] top-[55%]",
-  "left-[56%] top-[53%]",
-  "left-[83%] top-[55%]",
-  "left-[17%] top-[65%]",
-  "left-[40%] top-[64%]",
-  "left-[68%] top-[65%]",
-] as const;
-
 function MoneyTree({ pct, label }: { pct: number; label: string }) {
-  const visibleLeaves = pct <= 0 ? 0 : Math.max(1, Math.ceil((pct / 100) * LEAVES.length));
-  const growthClass =
-    pct >= 100
-      ? "scale-100"
-      : pct >= 80
-        ? "scale-90"
-        : pct >= 60
-          ? "scale-80"
-          : pct >= 40
-            ? "scale-70"
-            : pct >= 20
-              ? "scale-60"
-              : "scale-50";
+  const progress = Math.min(100, Math.max(0, pct));
+  const revealTop = 68 - progress * 0.68;
 
   return (
     <div
-      className="relative h-28 w-24 shrink-0 overflow-hidden"
+      className="relative aspect-square w-32 shrink-0 overflow-hidden sm:w-36"
       role="img"
       aria-label={`${label}, ${Math.round(pct)} percent grown`}
     >
-      <div className="absolute inset-x-0 bottom-0 h-2 rounded-full bg-primary/15" />
-      <div className="absolute bottom-1 left-1/2 h-[58%] w-2 -translate-x-1/2 rounded-t-full bg-chart-6 transition-all duration-700" />
-      <div className="absolute bottom-[35%] left-[28%] h-1.5 w-[28%] rotate-[24deg] rounded-full bg-chart-6" />
-      <div className="absolute bottom-[44%] right-[28%] h-1.5 w-[28%] -rotate-[27deg] rounded-full bg-chart-6" />
-      <div
-        className={`absolute inset-x-0 top-0 h-[73%] origin-bottom transition-transform duration-700 ease-out ${growthClass}`}
-      >
-        {LEAVES.map((position, index) => (
-          <span
-            key={position}
-            className={`absolute h-5 w-5 rounded-[70%_30%_70%_30%] bg-primary shadow-sm transition-all duration-500 ${position} ${
-              index < visibleLeaves ? "scale-100 opacity-100" : "scale-0 opacity-0"
-            } ${index % 3 === 0 ? "bg-chart-2" : index % 3 === 1 ? "bg-primary" : "bg-chart-4"}`}
-            style={{ transitionDelay: `${index * 24}ms` }}
-            aria-hidden="true"
-          />
-        ))}
-      </div>
-      {pct === 0 ? (
-        <span className="absolute bottom-1 left-1/2 -translate-x-1/2 text-2xl" aria-hidden="true">
-          🌱
-        </span>
+      <img
+        src={moneyTreeAsset.url}
+        alt=""
+        className="absolute inset-0 size-full object-contain opacity-20 grayscale"
+        aria-hidden="true"
+      />
+      <img
+        src={moneyTreeAsset.url}
+        alt=""
+        className="absolute inset-0 size-full object-contain transition-[clip-path] duration-1000 ease-out"
+        style={{ clipPath: `inset(${revealTop}% 0 0 0)` }}
+        aria-hidden="true"
+      />
+      {progress > 0 && progress < 100 ? (
+        <span
+          className="absolute left-1/2 size-2 -translate-x-1/2 animate-pulse rounded-full bg-primary shadow-sm"
+          style={{ top: `${Math.max(10, revealTop)}%` }}
+          aria-hidden="true"
+        />
       ) : null}
     </div>
   );
