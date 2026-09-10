@@ -83,7 +83,6 @@ function AuthPage() {
           setMode("login");
         } else {
           toast.success("Welcome to PaisaPluse 🌱");
-          window.location.replace("/dashboard");
         }
       } else if (mode === "login") {
         const { error } = await supabase.auth.signInWithPassword({
@@ -92,7 +91,6 @@ function AuthPage() {
         });
         if (error) throw error;
         toast.success("Welcome back!");
-        window.location.replace("/dashboard");
       } else {
         const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
           redirectTo: `${window.location.origin}/reset-password`,
@@ -120,7 +118,6 @@ function AuthPage() {
         return;
       }
       if (result.redirected) return;
-      window.location.replace("/dashboard");
     } catch (error) {
       toast.error(friendlyError(error));
     } finally {
